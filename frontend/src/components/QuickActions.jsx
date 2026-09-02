@@ -1,4 +1,5 @@
 import { HeartHandshake, UserRound } from "lucide-react";
+import { Link } from "react-router-dom";
 
 function QuickActions() {
   return (
@@ -17,8 +18,8 @@ function QuickActions() {
 
         <div className="grid gap-6 md:grid-cols-2">
 
-          <a
-            href="#support"
+          <Link
+            to="/support"
             className="group rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
           >
             <div className="mb-5 w-fit rounded-xl bg-emerald-100 p-3 text-emerald-600">
@@ -37,10 +38,10 @@ function QuickActions() {
             <span className="mt-5 inline-block font-semibold text-emerald-600">
               Request support →
             </span>
-          </a>
+          </Link>
 
-          <a
-            href="#volunteer"
+          <Link
+            to="/volunteer"
             className="group rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
           >
             <div className="mb-5 w-fit rounded-xl bg-blue-100 p-3 text-blue-600">
@@ -59,7 +60,7 @@ function QuickActions() {
             <span className="mt-5 inline-block font-semibold text-blue-600">
               Become a volunteer →
             </span>
-          </a>
+          </Link>
 
         </div>
       </div>

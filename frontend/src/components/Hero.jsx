@@ -1,4 +1,5 @@
-import { ArrowRight, HeartPulse, ShieldCheck, Users } from "lucide-react";
+import { ArrowRight, HeartPulse, Users } from "lucide-react";
+import { Link } from "react-router-dom";
 
 function Hero() {
   return (
@@ -23,21 +24,21 @@ function Hero() {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
-            <a
-              href="#support"
+            <Link
+              to="/support"
               className="flex items-center gap-2 rounded-xl bg-emerald-600 px-6 py-3.5 font-semibold text-white transition hover:bg-emerald-700"
             >
               Request Support
               <ArrowRight size={18} />
-            </a>
+            </Link>
 
-            <a
-              href="#volunteer"
+            <Link
+              to="/volunteer"
               className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3.5 font-semibold text-slate-700 transition hover:bg-slate-50"
             >
               <Users size={18} />
               Become a Volunteer
-            </a>
+            </Link>
           </div>
 
           <div className="mt-8 flex gap-8 text-sm text-slate-500">

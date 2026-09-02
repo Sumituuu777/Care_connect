@@ -4,6 +4,7 @@ import {
   Phone,
   MapPin,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -38,33 +39,33 @@ function Footer() {
             </h3>
 
             <div className="mt-4 space-y-3 text-sm">
-              <a
-                href="#home"
+              <Link
+                to="/"
                 className="block transition hover:text-emerald-400"
               >
                 Home
-              </a>
+              </Link>
 
-              <a
-                href="#support"
+              <Link
+                to="/support"
                 className="block transition hover:text-emerald-400"
               >
                 Get Support
-              </a>
+              </Link>
 
-              <a
-                href="#volunteer"
+              <Link
+                to="/volunteer"
                 className="block transition hover:text-emerald-400"
               >
                 Become a Volunteer
-              </a>
+              </Link>
 
-              <a
-                href="#how-it-works"
+              <Link
+                to="/dashboard"
                 className="block transition hover:text-emerald-400"
               >
-                How It Works
-              </a>
+                NGO Dashboard
+              </Link>
             </div>
           </div>
 

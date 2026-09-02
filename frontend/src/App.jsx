@@ -1,34 +1,35 @@
-// import Footer from "./components/Footer";
-// import Hero from "./components/Hero";
-// import HowItWorks from "./components/HowItWorks";
-// import Navbar from "./components/Navbar";
-// import QuickActions from "./components/QuickActions";
-// import SupportForm from "./components/SupportForm";
-// import VolunteerForm from "./components/VolunteerForm";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Dashboard from "./components/DashBoard";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
-// function App() {
-//   return (
-//     <div className="min-h-screen bg-slate-50 text-slate-900">
-//       <Navbar />
-//       <main>
-//         <Hero/>
-//         <QuickActions/>
-//         <HowItWorks/>
-//         <SupportForm/>
-//         <VolunteerForm/>
-//       </main>
-//       <Footer/>
-//     </div>
-//   );
-// }
-
-// export default App;
-
+import Home from "./pages/Home";
+import Support from "./pages/Support";
+import Volunteer from "./pages/Volunteer";
+import Dashboard from "./components/Dashboard";
 
 function App() {
-  return <Dashboard/>
+  return (
+    <BrowserRouter>
+      <div className="min-h-screen bg-slate-50 text-slate-900">
+
+        <Navbar />
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+
+          <Route path="/support" element={<Support />} />
+
+          <Route path="/volunteer" element={<Volunteer />} />
+
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+
+        <Footer />
+
+      </div>
+    </BrowserRouter>
+  );
 }
 
 export default App;
