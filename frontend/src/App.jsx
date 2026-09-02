@@ -2,6 +2,8 @@ import Hero from "./components/Hero";
 import HowItWorks from "./components/HowItWorks";
 import Navbar from "./components/Navbar";
 import QuickActions from "./components/QuickActions";
+import SupportForm from "./components/SupportForm";
+import VolunteerForm from "./components/VolunteerForm";
 
 function App() {
   return (
@@ -11,6 +13,8 @@ function App() {
         <Hero/>
         <QuickActions/>
         <HowItWorks/>
+        <SupportForm/>
+        <VolunteerForm/>
       </main>
     </div>
   );
