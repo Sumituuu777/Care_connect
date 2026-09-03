@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useVolunteer } from "../context/VolunteerContext";
+import { useVolunteer } from "../context/VolunteerContext.jsx";
 import {
   CheckCircle,
   HeartHandshake,

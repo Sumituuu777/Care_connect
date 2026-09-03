@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 
 import { SupportProvider } from "./context/supportContext.jsx";
-import { VolunteerProvider } from "./context/VolunteerContext";
+import { VolunteerProvider } from "./context/VolunteerContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

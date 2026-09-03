@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import Navbar from "./components/Navbar.jsx";
+import Footer from "./components/Footer.jsx";
 
-import Home from "./pages/Home";
-import Support from "./pages/Support";
-import Volunteer from "./pages/Volunteer";
-import Dashboard from "./components/Dashboard";
+import Home from "./pages/Home.jsx";
+import Support from "./pages/Support.jsx";
+import Volunteer from "./pages/Volunteer.jsx";
+import Dashboard from "./components/DashBoard.jsx";
 
 function App() {
   return (

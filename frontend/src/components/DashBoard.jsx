@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useSupport } from "../context/supportContext";
-import { useVolunteer } from "../context/VolunteerContext";
+import { useSupport } from "../context/supportContext.jsx";
+import { useVolunteer } from "../context/VolunteerContext.jsx";
 
 import {
   Activity,
