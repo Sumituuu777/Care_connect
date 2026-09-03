@@ -221,7 +221,7 @@ function Dashboard() {
 
               {requests.map((request) => (
                 <div
-                  key={request.id}
+                  key={request._id}
                   className="p-6 transition hover:bg-slate-50"
                 >
 
@@ -241,7 +241,9 @@ function Dashboard() {
 
                         <p className="text-sm text-slate-500">
                           {request.category} •{" "}
-                          {new Date(request.createdAt).toLocaleTimeString([], {
+                          {new Date(request.createdAt).toLocaleString([], {
+                            day: "2-digit",
+                            month: "short",
                             hour: "2-digit",
                             minute: "2-digit",
                           })}
@@ -303,7 +305,7 @@ function Dashboard() {
             </div>
           </div>
 
-          {/* Right Sidebar */}
+{/*----------------------------------------------- Right Sidebar -----------------------------------------------------------------------*/}
           <div className="space-y-6">
 
             {/* Volunteer Overview */}
@@ -325,11 +327,11 @@ function Dashboard() {
                 <div>
                   <div className="flex justify-between text-sm">
                     <span className="text-slate-500">
-                      Healthcare Support
+                      Medical Support
                     </span>
 
                     <span className="font-semibold">
-                      14
+                      {volunteers.filter((v)=>v.role==="Healthcare Support").length}
                     </span>
                   </div>
 
@@ -345,7 +347,7 @@ function Dashboard() {
                     </span>
 
                     <span className="font-semibold">
-                      10
+                      {volunteers.filter((v)=>v.role==="Patient Assistance").length}
                     </span>
                   </div>
 
@@ -361,7 +363,7 @@ function Dashboard() {
                     </span>
 
                     <span className="font-semibold">
-                      8
+                      {volunteers.filter((v)=>v.role==="Community Outreach").length}
                     </span>
                   </div>
 
@@ -372,12 +374,12 @@ function Dashboard() {
 
                 <div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-slate-500">
+                    <span className="text-slate-500">     
                       Technical Support
                     </span>
 
                     <span className="font-semibold">
-                      6
+                      {volunteers.filter((v)=>v.role==="Technical Support").length}
                     </span>
                   </div>
 
@@ -394,7 +396,7 @@ function Dashboard() {
 
             </div>
 
-            {/* AI Feature Card */}
+{/*--------------------------------------------------- AI Feature Card --------------------------------------------------------------------*/}
             <div className="rounded-2xl bg-emerald-600 p-6 text-white shadow-sm">
 
               <div className="flex items-center gap-3">
