@@ -1,11 +1,30 @@
 import { useState } from "react";
+import { useSupport } from "../context/supportContext";
 
 function SupportForm() {
   const [submitted, setSubmitted] = useState(false);
+  const { submitSupportRequest, loading, error } = useSupport();
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+
+    const form = e.target;
+
+    const formData = {
+      name: form.name.value,
+      age: Number(form.age.value),
+      contact: form.contact.value,
+      category: form.category.value,
+      description: form.description.value,
+    };
+
+    const result = await submitSupportRequest(formData);
+
+    if (result.success) {
+      setSubmitted(true);
+      form.reset();
+    }
   };
 
   return (
@@ -41,6 +60,7 @@ function SupportForm() {
 
               <input
                 type="text"
+                name="name"
                 required
                 placeholder="Enter your name"
                 className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-emerald-500"
@@ -54,6 +74,7 @@ function SupportForm() {
 
               <input
                 type="number"
+                name="age"
                 required
                 placeholder="Enter age"
                 className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-emerald-500"
@@ -67,6 +88,7 @@ function SupportForm() {
 
               <input
                 type="text"
+                name="contact"
                 required
                 placeholder="How can we contact you?"
                 className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-emerald-500"
@@ -79,6 +101,7 @@ function SupportForm() {
               </label>
 
               <select
+                name="category"
                 required
                 className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none focus:border-emerald-500"
               >
@@ -99,6 +122,7 @@ function SupportForm() {
             </label>
 
             <textarea
+              name="description"
               required
               rows="5"
               placeholder="Briefly explain what support you need..."
@@ -108,10 +132,19 @@ function SupportForm() {
 
           <button
             type="submit"
-            className="mt-6 w-full rounded-xl bg-emerald-600 py-3.5 font-semibold text-white transition hover:bg-emerald-700"
+            disabled={loading}
+            className="mt-6 w-full rounded-xl bg-emerald-600 py-3.5 font-semibold text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            Submit Support Request
+            {loading
+              ? "Submitting..."
+              : "Submit Support Request"}
           </button>
+
+          {error && (
+            <div className="mt-4 rounded-xl bg-red-50 p-4 text-sm font-medium text-red-600">
+              {error}
+            </div>
+          )}
 
           {submitted && (
             <div className="mt-5 rounded-xl bg-emerald-50 p-4 text-center text-sm font-medium text-emerald-700">
