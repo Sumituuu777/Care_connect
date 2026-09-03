@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 
-import { SupportProvider } from "./context/supportContext";
+import { SupportProvider } from "./context/SupportContext.jsx";
 import { VolunteerProvider } from "./context/VolunteerContext";
 
 createRoot(document.getElementById("root")).render(

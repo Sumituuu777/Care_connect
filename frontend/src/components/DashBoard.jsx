@@ -1,3 +1,7 @@
+import { useEffect } from "react";
+import { useSupport } from "../context/SupportContext";
+import { useVolunteer } from "../context/VolunteerContext";
+
 import {
   Activity,
   AlertTriangle,
@@ -10,48 +14,25 @@ import {
 } from "lucide-react";
 
 function Dashboard() {
-  const requests = [
-    {
-      id: 1,
-      name: "Raj Kumar",
-      category: "Medical Assistance",
-      priority: "High",
-      status: "Pending",
-      time: "10 min ago",
-      summary:
-        "Patient is seeking assistance with accessing healthcare services due to financial difficulties.",
-    },
-    {
-      id: 2,
-      name: "Priya Sharma",
-      category: "Medicine Support",
-      priority: "Medium",
-      status: "In Progress",
-      time: "35 min ago",
-      summary:
-        "Patient needs help finding affordable medication and information about nearby support resources.",
-    },
-    {
-      id: 3,
-      name: "Amit Verma",
-      category: "General Assistance",
-      priority: "Low",
-      status: "Resolved",
-      time: "1 hour ago",
-      summary:
-        "Patient requested information about available community healthcare programs.",
-    },
-    {
-      id: 4,
-      name: "Neha Singh",
-      category: "Hospital Information",
-      priority: "High",
-      status: "Pending",
-      time: "2 hours ago",
-      summary:
-        "Patient is looking for information about nearby hospitals and available financial assistance.",
-    },
-  ];
+  const {
+    requests,
+    loading: supportLoading,
+    error: supportError,
+    fetchSupportRequests,
+  } = useSupport();
+
+  const {
+    volunteers,
+    loading: volunteerLoading,
+    error: volunteerError,
+    fetchVolunteers,
+  } = useVolunteer();
+
+  useEffect(() => {
+    fetchSupportRequests();
+    fetchVolunteers();
+  }, []);
+
 
   const getPriorityStyle = (priority) => {
     if (priority === "High") {
@@ -77,6 +58,27 @@ function Dashboard() {
     return "bg-amber-50 text-amber-600";
   };
 
+  //-------------------while Loading Dashboard------------------------------------------------------
+  if (supportLoading || volunteerLoading) {
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center">
+        <p className="text-slate-500">
+          Loading dashboard...
+        </p>
+      </div>
+    );
+  }
+  //---------------------------If there is any error -------------------------------------------------
+  if (supportError || volunteerError) {
+    return (
+      <div className="mx-auto max-w-7xl px-6 py-16">
+        <div className="rounded-xl bg-red-50 p-5 text-red-600">
+          {supportError || volunteerError}
+        </div>
+      </div>
+    );
+  }
+  //-------------------------------- Dashboard loaded now ----------------------------------------
   return (
     <section className="min-h-screen bg-slate-50 px-4 py-8 md:px-8">
       <div className="mx-auto max-w-7xl">
@@ -103,7 +105,7 @@ function Dashboard() {
           </button>
         </div>
 
-        {/* Statistics */}
+        {/*-------------------------------------------------- Statistics ----------------------------------------------------------------------- */}
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
 
           {/* Total Requests */}
@@ -124,7 +126,7 @@ function Dashboard() {
             </p>
 
             <h2 className="mt-1 text-3xl font-bold text-slate-900">
-              24
+              {requests.length}
             </h2>
           </div>
 
@@ -145,7 +147,7 @@ function Dashboard() {
             </p>
 
             <h2 className="mt-1 text-3xl font-bold text-slate-900">
-              5
+              {requests.filter((request) => request.priority === "High").length}
             </h2>
           </div>
 
@@ -166,11 +168,11 @@ function Dashboard() {
             </p>
 
             <h2 className="mt-1 text-3xl font-bold text-slate-900">
-              8
+              {requests.filter((request) => request.status === "Pending").length}
             </h2>
           </div>
 
-          {/* Volunteers */}
+          {/*------------------------------------------------ Volunteers------------------------------------------------------------ */}
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
             <div className="flex items-center justify-between">
               <div className="rounded-xl bg-blue-50 p-3 text-blue-600">
@@ -188,16 +190,15 @@ function Dashboard() {
             </p>
 
             <h2 className="mt-1 text-3xl font-bold text-slate-900">
-              38
+              {volunteers.length}
             </h2>
           </div>
 
         </div>
 
-        {/* Main Content */}
+        {/*-------------------------------------------------- Main Content(Requests) -----------------------------------------------------------------*/}
         <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_320px]">
 
-          {/* Requests */}
           <div className="rounded-2xl border border-slate-200 bg-white shadow-sm">
 
             <div className="flex items-center justify-between border-b border-slate-200 p-6">
@@ -239,7 +240,11 @@ function Dashboard() {
                         </h3>
 
                         <p className="text-sm text-slate-500">
-                          {request.category} • {request.time}
+                          {request.category} •{" "}
+                          {new Date(request.createdAt).toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
                         </p>
                       </div>
 
@@ -266,7 +271,7 @@ function Dashboard() {
                     </div>
 
                     <p className="text-sm leading-6 text-slate-600">
-                      {request.summary}
+                      {request.summary || "AI summary not available yet."}
                     </p>
 
                   </div>
