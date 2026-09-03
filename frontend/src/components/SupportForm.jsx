@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSupport } from "../context/SupportContext";
+import { useSupport } from "../context/supportContext";
 
 function SupportForm() {
   const [submitted, setSubmitted] = useState(false);
