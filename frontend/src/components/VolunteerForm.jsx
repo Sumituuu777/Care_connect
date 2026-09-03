@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useVolunteer } from "../context/VolunteerContext";
 import {
   CheckCircle,
   HeartHandshake,
@@ -8,10 +9,34 @@ import {
 
 function VolunteerForm() {
   const [submitted, setSubmitted] = useState(false);
+  const {
+    registerVolunteer,
+    loading,
+    error,
+  } = useVolunteer();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+
+    const form = e.target;
+
+    const formData = {
+      name: form.name.value,
+      email: form.email.value,
+      phone: form.phone.value,
+      location: form.location.value,
+      role: form.role.value,
+      availability: form.availability.value,
+      skills: form.skills.value,
+      motivation: form.motivation.value,
+    };
+
+    const result = await registerVolunteer(formData);
+
+    if (result.success) {
+      setSubmitted(true);
+      form.reset();
+    }
   };
 
   return (
@@ -56,8 +81,8 @@ function VolunteerForm() {
             <div className="mt-8 space-y-6">
 
               <div className="flex gap-4">
-                <div className="rounded-xl bg-white p-3 text-emerald-600 shadow-sm">
-                  <Stethoscope size={21} />
+                <div className=" flex justify-center items-center rounded-xl bg-white p-3 text-emerald-600 shadow-sm">
+                  <Stethoscope size={21}/>
                 </div>
 
                 <div>
@@ -73,7 +98,7 @@ function VolunteerForm() {
               </div>
 
               <div className="flex gap-4">
-                <div className="rounded-xl bg-white p-3 text-emerald-600 shadow-sm">
+                <div className="flex justify-center items-center rounded-xl bg-white p-3 text-emerald-600 shadow-sm">
                   <Clock3 size={21} />
                 </div>
 
@@ -90,7 +115,7 @@ function VolunteerForm() {
               </div>
 
               <div className="flex gap-4">
-                <div className="rounded-xl bg-white p-3 text-emerald-600 shadow-sm">
+                <div className="flex justify-center items-center rounded-xl bg-white p-3 text-emerald-600 shadow-sm">
                   <CheckCircle size={21} />
                 </div>
 
@@ -125,6 +150,7 @@ function VolunteerForm() {
 
                 <input
                   type="text"
+                  name="name"
                   required
                   placeholder="Enter your name"
                   className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
@@ -139,6 +165,7 @@ function VolunteerForm() {
 
                 <input
                   type="email"
+                  name="email"
                   required
                   placeholder="you@example.com"
                   className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
@@ -153,6 +180,7 @@ function VolunteerForm() {
 
                 <input
                   type="tel"
+                  name="phone"
                   required
                   placeholder="+91 XXXXX XXXXX"
                   className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
@@ -167,6 +195,7 @@ function VolunteerForm() {
 
                 <input
                   type="text"
+                  name="location"
                   required
                   placeholder="Enter your city"
                   className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
@@ -180,6 +209,7 @@ function VolunteerForm() {
                 </label>
 
                 <select
+                  name="role"
                   required
                   className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
                 >
@@ -200,6 +230,7 @@ function VolunteerForm() {
                 </label>
 
                 <select
+                  name="availability"
                   required
                   className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
                 >
@@ -222,6 +253,7 @@ function VolunteerForm() {
 
               <input
                 type="text"
+                name="skills"
                 placeholder="e.g. First aid, communication, teaching, coding..."
                 className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
               />
@@ -234,6 +266,7 @@ function VolunteerForm() {
               </label>
 
               <textarea
+                name="motivation"
                 rows="4"
                 placeholder="Tell us briefly about your motivation..."
                 className="w-full resize-none rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
@@ -243,10 +276,17 @@ function VolunteerForm() {
             {/* Submit */}
             <button
               type="submit"
-              className="mt-6 w-full rounded-xl bg-emerald-600 py-3.5 font-semibold text-white transition hover:bg-emerald-700"
+              disabled={loading}
+              className="mt-6 w-full rounded-xl bg-emerald-600 py-3.5 font-semibold text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              Register as a Volunteer
+              {loading ? "Registering..." : "Register as Volunteer"}
             </button>
+
+            {error && (
+              <div className="mt-4 rounded-xl bg-red-50 p-4 text-sm font-medium text-red-600">
+                {error}
+              </div>
+            )}
 
             {/* Success */}
             {submitted && (
