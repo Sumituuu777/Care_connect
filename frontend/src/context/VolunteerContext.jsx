@@ -3,7 +3,7 @@ import axios from "axios";
 
 const VolunteerContext = createContext();
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "https://care-connect-my2e.onrender.com/api";
 
 export const VolunteerProvider = ({ children }) => {
   const [volunteers, setVolunteers] = useState([]);

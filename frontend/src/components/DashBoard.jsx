@@ -99,13 +99,10 @@ function Dashboard() {
             </p>
           </div>
 
-          <button className="flex w-fit items-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700">
-            <HeartPulse size={18} />
-            New Request
-          </button>
         </div>
 
-        {/*-------------------------------------------------- Statistics ----------------------------------------------------------------------- */}
+{/*-------------------------------------------------- Statistics ----------------------------------------------------------------------- */}
+
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
 
           {/* Total Requests */}
@@ -172,7 +169,8 @@ function Dashboard() {
             </h2>
           </div>
 
-          {/*------------------------------------------------ Volunteers------------------------------------------------------------ */}
+{/*------------------------------------------------ Volunteers-------------------------------------------------------------------- */}
+
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
             <div className="flex items-center justify-between">
               <div className="rounded-xl bg-blue-50 p-3 text-blue-600">
@@ -196,7 +194,8 @@ function Dashboard() {
 
         </div>
 
-        {/*-------------------------------------------------- Main Content(Requests) -----------------------------------------------------------------*/}
+ {/*-------------------------------------------------- Main Content(Requests) -----------------------------------------------------------------*/}
+
         <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_320px]">
 
           <div className="rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -273,7 +272,7 @@ function Dashboard() {
                     </div>
 
                     <p className="text-sm leading-6 text-slate-600">
-                      {request.summary || "AI summary not available yet."}
+                      {request.aiSummary || "AI summary not available yet."}
                     </p>
 
                   </div>
@@ -389,10 +388,6 @@ function Dashboard() {
                 </div>
 
               </div>
-
-              <button className="mt-6 w-full rounded-xl border border-slate-200 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">
-                Manage Volunteers
-              </button>
 
             </div>
 
